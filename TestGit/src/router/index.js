@@ -1,26 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import A from '@/components/a.vue'
 import B from '@/components/b.vue'
+import Home from '@/components/home.vue'
+import NotFound from '@/components/404.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '*',
+      name: '404',
+      component: NotFound
+    },
+    {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      redirect: '/home'
     },
     {
-      path: '/a',
-      name: 'a',
-      component: A
-    },
-    {
-      path: '/b',
-      name: 'b',
-      component: B
+      path: '/home',
+      name: 'home',
+      component: Home,
+      children: [
+        { path: '/a', component: A },
+        { path: '/b', component: B }
+      ]
     }
   ]
 })
